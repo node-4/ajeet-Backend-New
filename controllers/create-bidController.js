@@ -362,9 +362,7 @@ const  filterHightestBidlist = async(ID, user) => {
 module.exports.AcceptBid = async (req, res) => {
   try {
     const data = await buyerSchrma.findById({ _id: req.params.id });
-    console.log(req.params.user)
     const waitlistData = await waitlist.findOne({ user: req.params.user });
-    console.log(waitlistData);
     for (const d of waitlistData.top) {
       if (d._id.toString() === req.params.id.toString()) {
         const index = waitlistData.top.findIndex((d) => d._id.toString() === req.params.id.toString());
@@ -376,22 +374,11 @@ module.exports.AcceptBid = async (req, res) => {
         const waitlistData2 = await waitlist.findOne({ user: req.params.user });
         console.log(waitlistData2)
         console.log("Buyer ")
-        await buyerSchrma.updateOne(
-          { _id: d._id },
-          {
-            status: "winner",
-            accept_status: true,
-          }, {new: true}
-        );
+        await buyerSchrma.updateOne({ _id: d.bidDetail },{status: "winner",accept_status: true,}, {new: true});
       } else {
         waitlistData.top[d.status] = "Onhold";
         await waitlistData.save();
-        await buyerSchrma.findByIdAndUpdate(
-          { _id: d._id },
-          {
-            status: "Onhold",
-          }
-        );
+        await buyerSchrma.findByIdAndUpdate({ _id: d.bidDetail },{status: "Onhold",});
       }
     }
     res.status(200).json({
