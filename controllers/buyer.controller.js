@@ -248,11 +248,8 @@ module.exports.UpdateBidDetails = expressAsyncHandler(async (req, res) => {
 });
 module.exports.getByUserId= async(req,res) => {
   try{
-    const Data = await Buyer.aggregate([
-      {$sort: {highestBid: -1}},
-      {$limit: 1}
-    ]);
-    const data = await Buyer.find({user: req.params.id})
+    const Data = await Buyer.aggregate([{$sort: {highestBid: -1}},{$limit: 1}]);
+    const data = await Buyer.find({user: req.params.id,status:"Onhold" })
       .populate('user')
       .populate('bidDetail')
       .populate('crop')
@@ -275,6 +272,31 @@ module.exports.getByUserId= async(req,res) => {
   }
 }
 
+module.exports.getwinnerByUserId= async(req,res) => {
+  try{
+    const Data = await Buyer.aggregate([{$sort: {highestBid: -1}},{$limit: 1}]);
+    const data = await Buyer.find({user: req.params.id,status:"winner" })
+      .populate('user')
+      .populate('bidDetail')
+      .populate('crop')
+      .populate({ 
+        path: 'createbid', 
+        populate: { 
+          path: 'user_id', 
+          model: 'User'
+        } 
+      });
+    console.log(data);
+    res.status(200).json({ 
+      topHeightBid : Data[0].highestBid ,
+      details: data,
+    });
+  }catch(err){
+    res.status(400).json({
+      message: err.message
+    })
+  }
+}
 
 // module.exports.getByUserId= async(req,res) => {
 //   try{

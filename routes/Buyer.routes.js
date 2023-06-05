@@ -13,8 +13,10 @@ router.put("/modify/:id" ,placebid.modifyBid);
 router.put('/update/:id', placebid.UpdateBidDetails);
 router.get('/acceptbid/:id', placebid.getAcccepted)
 router.get('/getbuyer/:id', placebid.getByUserId);
+router.get('/getwinnerbids/:id', placebid.getwinnerByUserId);
 router.put('/update/:id', placebid.UpdateBidDetails);
 router.get('/payment', placebid.getAllPayment);
 router.get('/payment/buyer/:id', placebid.getAllPaymentBuyerId);
 router.get('/payment/supplier/:id', placebid.getAllPaymentSupplierId);
+router.post('/createPayment', placebid.createpaymentSummary);
 module.exports = router;
