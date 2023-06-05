@@ -207,9 +207,6 @@ module.exports.updateProfile = expressAsyncHandler(async (req, res) => {
     const id = req.params.id;
     try {
         const { tradeName, phoneNumber, photo, location, email, address } =req.body;
-        if (!email) {
-            return res.status(501).send({ msg: "Required filleds" });
-        }
         const data1 = await User.findById({ _id: req.params.id });
         if (data1) {
             let obj = {
