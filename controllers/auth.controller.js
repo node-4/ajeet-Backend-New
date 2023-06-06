@@ -218,8 +218,9 @@ module.exports.updateProfile = expressAsyncHandler(async (req, res) => {
                 email: email || data1.email,
                 isRegisered: true,
             };
-            const data = await User.findByIdAndUpdate(id, {obj},{new:true});
-            return res.status(200).send({ msg: "update successfully" });
+            console.log(obj);
+            const data = await User.findByIdAndUpdate({_id: data1._id }, {$set: obj},{new:true});
+            return res.status(200).send({data:data, msg: "update successfully" });
         }
     } catch (error) {
         console.log(error);
