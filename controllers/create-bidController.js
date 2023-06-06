@@ -302,10 +302,7 @@ exports.getBidByBidId = async(req,res) => {
 const  filterHightestBidlist = async(ID, user) => {
   try{
 //  const ID = req.params.id
-  const data = await buyerSchrma.find({
-     createbid: ID,
-  }).sort({highestBid: -1}).limit(10)
-  console.log(user)
+  const data = await buyerSchrma.find({createbid: ID,}).sort({highestBid: -1}).limit(10)
   const waitlistData = await waitlist.findOne({user: user})
   console.log("WaitListData ", waitlistData)
   // if(waitlistData){
