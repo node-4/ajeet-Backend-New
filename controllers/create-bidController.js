@@ -360,28 +360,50 @@ module.exports.AcceptBid = async (req, res) => {
   try {
     const data = await buyerSchrma.findById({ _id: req.params.id });
     const waitlistData = await waitlist.findOne({ user: req.params.user });
-    for (const d of waitlistData.top) {
-      if (d._id.toString() === req.params.id.toString()) {
-        const index = waitlistData.top.findIndex((d) => d._id.toString() === req.params.id.toString());
-        waitlistData.top[index].status = "winner";
-        waitlistData.top[index].accept_status = true;
-        console.log(index)
-        await waitlistData.save();
-        console.log(waitlistData)
-        const waitlistData2 = await waitlist.findOne({ user: req.params.user });
-        console.log(waitlistData2)
-        console.log("Buyer ")
-        await buyerSchrma.updateOne({ _id: d.bidDetail },{status: "winner",accept_status: true,}, {new: true});
-      } else {
-        waitlistData.top[d.status] = "Onhold";
-        await waitlistData.save();
-        await buyerSchrma.findByIdAndUpdate({ _id: d.bidDetail },{status: "Onhold",});
+    let top = [];
+    for (let i = 0; i < waitlistData.top.length; i++) {
+      if (waitlistData.top[i]._id.toString() === req.params.id.toString()) {
+        let obj ={
+           _id: waitlistData.top[i]._id,
+           product: waitlistData.top[i].product,
+           highestBid: waitlistData.top[i].highestBid,
+           bidDetail: waitlistData.top[i].bidDetail,
+           quantity: waitlistData.top[i].quantity,
+           crop: waitlistData.top[i].crop,
+           user: waitlistData.top[i].user,
+           status: "winner",
+           createbid: waitlistData.top[i].createbid,
+           inspection: waitlistData.top[i].inspection,
+           accept_status:true
+            }
+            top.push(obj)
+         await buyerSchrma.updateOne({ _id: waitlistData.top[i]._id },{status: "winner",accept_status: true,}, {new: true});
+
+      }else{
+        let obj ={
+          _id: waitlistData.top[i]._id,
+          product: waitlistData.top[i].product,
+          highestBid: waitlistData.top[i].highestBid,
+          bidDetail: waitlistData.top[i].bidDetail,
+          quantity: waitlistData.top[i].quantity,
+          crop: waitlistData.top[i].crop,
+          user: waitlistData.top[i].user,
+          status: "Onhold",
+          createbid: waitlistData.top[i].createbid,
+          inspection: waitlistData.top[i].inspection,
+          accept_status:true
+           }
+           top.push(obj)
+           await buyerSchrma.findByIdAndUpdate({ _id: waitlistData.top[i]._id },{status: "Onhold",},{new:true});
       }
     }
-    res.status(200).json({
-      message: "Bid is Accepted",
-    });
+    console.log(top);
+    let update = await await waitlist.findByIdAndUpdate({_id: waitlistData._id},{$set:{top:top}},{new: true})
+    if(update){
+      res.status(200).json({message: "Bid is Accepted",});
+    }
   } catch (err) {
+    console.log(err);
     res.status(400).json({
       message: err.message,
     });
