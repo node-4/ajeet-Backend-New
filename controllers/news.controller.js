@@ -46,45 +46,22 @@ module.exports.searchnews = expressAsyncHandler(async (req, res) => {
   }
 });
 
-exports.AddNwes = async(req,res) => {
+exports.AddNews = async(req,res) => {
   try{
-  // if(!req.body.userId){
-  //   return res.status(500).json({
-  //     message: "UserId is Require "
-  //   })
-  // }
-const data = {
-  userId: req.body.userId, 
-  name: req.body.name, 
-  message: req.body.message, 
-  photo: req.body.name, 
-  video: req.body.video,
-  voice: req.body.voice, 
-  link: req.body.link
-}
-const Data = await News.create(data);
-res.status(200).json({
-  message: Data
-})
+    const data = {
+      name: req.body.name, 
+      message: req.body.message, 
+      photo: req.body.name, 
+      video: req.body.video,
+      voice: req.body.voice, 
+      link: req.body.link
+    }
+    const Data = await News.create(data);
+    res.status(200).json({message: Data})
   }catch(err){
-    res.status(400).json({
-      message: err.message
-    })
+    res.status(400).json({ message: err.message })
   }
 }
-exports.GetByUserIDNwes = async(req,res) => {
-  try{
-const Data = await News.find({userId: req.params.id});
-res.status(200).json({
-  message: Data
-})
-  }catch(err){
-    res.status(400).json({
-      message: err.message
-    })
-  }
-}
-
 
 exports.GetAllNews = async(req,res) => {
   try{

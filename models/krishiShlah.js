@@ -1,5 +1,11 @@
 const mongoose = require('mongoose');
+
 const News = mongoose.Schema({
+    userId: {
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'User', 
+        require: false
+    }, 
     name: {
         type: String,
         require: false
@@ -27,5 +33,6 @@ const News = mongoose.Schema({
     }
 },{new : true})
 
-const news = mongoose.model('news', News);
+const news = mongoose.model('krishiShlah', News);
+
 module.exports = news
