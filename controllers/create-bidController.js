@@ -246,19 +246,15 @@ exports.getBidByBidId = async(req,res) => {
         message: "User ID required "
       })
     }
-    filterHightestBidlist(req.params.id, req.body.user)
-  const data = await waitlist.find({bid: req.params.id}).populate(['user', 'bid']).populate({
-    path: 'top.user',
-    model: 'User'
-  })
-  if(!data){
-    return res.status(500).json({
-      message: "No Data Found this Bid ID "
-    })
-  }
-  res.status(200).json({
-    message: data
-  })
+    const findData =  await filterHightestBidlist(req.params.id, req.body.user)
+    if(findData){
+      const data = await waitlist.find({bid: req.params.id,user:req.body.user}).populate(['user', 'bid']).populate({path: 'top.user',model: 'User' })
+      if(!data){
+        return res.status(500).json({message: "No Data Found this Bid ID "})
+      }
+      res.status(200).json({message: data})
+
+    }
   }catch(err){
     console.log(err);
     res.status(400).json({
@@ -301,22 +297,11 @@ exports.getBidByBidId = async(req,res) => {
 
 const  filterHightestBidlist = async(ID, user) => {
   try{
-//  const ID = req.params.id
   const data = await buyerSchrma.find({createbid: ID,}).sort({highestBid: -1}).limit(10)
-  const waitlistData = await waitlist.findOne({user: user})
+  const waitlistData = await waitlist.findOne({user: user, bid:ID})
   console.log("WaitListData ", waitlistData)
-  // if(waitlistData){
-  //   console.log(waitlistData)
-  //   waitlistData.top = data
-  //   waitlistData.save()
-  // }
   if(!waitlistData){
-    console.log("Empty")
-  await waitlist.create({
-      user: user, 
-      top : data,
-      bid: ID
-    });
+    return await waitlist.create({user: user, top : data,bid: ID});
   }
   // if(waitlistData){
   //   await waitlist.updateOne({_id: waitlistData._id}, {
