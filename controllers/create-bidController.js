@@ -242,9 +242,7 @@ module.exports.allUsers = async (req, res) => {
 exports.getBidByBidId = async(req,res) => {
   try{
     if(!req.body.user){
-      return res.status(400).json({
-        message: "User ID required "
-      })
+      return res.status(400).json({message: "User ID required "})
     }
     const findData =  await filterHightestBidlist(req.params.id, req.body.user)
     if(findData){
@@ -302,6 +300,8 @@ const  filterHightestBidlist = async(ID, user) => {
   console.log("WaitListData ", waitlistData)
   if(!waitlistData){
     return await waitlist.create({user: user, top : data,bid: ID});
+  }else{
+    return waitlistData;
   }
   // if(waitlistData){
   //   await waitlist.updateOne({_id: waitlistData._id}, {
