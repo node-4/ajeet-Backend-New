@@ -5,7 +5,7 @@ const { emailValidtaion } = require("../Helper/validation");
 const jwt = require("jsonwebtoken");
 const JWTkey = "node3";
 var newOTP = require("otp-generators");
-
+const commonfunction = require('../Helper/communFunction')
 module.exports.isAuthenticated2 = (req, res, next) => {
     if (req.headers.authorization) {
         console.log("entered authorization");
@@ -209,12 +209,16 @@ module.exports.updateProfile = expressAsyncHandler(async (req, res) => {
         const { tradeName, phoneNumber, photo, location, email, address } =req.body;
         const data1 = await User.findById({ _id: req.params.id });
         if (data1) {
+            let image;
+            if(photo){
+                image= await  commonfunction.getSecureUrl(photo);
+            }
             let obj = {
                 tradeName: tradeName || data1.tradeName,
                 phoneNumber: phoneNumber || data1.phoneNumber,
                 location: location || data1.location,
                 address: address || data1.address,
-                photo: photo || data1.photo,
+                photo: image || data1.photo,
                 email: email || data1.email,
                 isRegisered: true,
             };
