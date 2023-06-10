@@ -6,6 +6,12 @@ const jwt = require("jsonwebtoken");
 const JWTkey = "node3";
 var newOTP = require("otp-generators");
 const commonfunction = require('../Helper/communFunction')
+const cloudinary = require("cloudinary");
+cloudinary.config({
+    cloud_name: "https-www-pilkhuwahandloom-com",
+    api_key: "886273344769554",
+    api_secret: "BVicyMGE04PrE7vWSorJ5txKmPs",
+});
 module.exports.isAuthenticated2 = (req, res, next) => {
     if (req.headers.authorization) {
         console.log("entered authorization");
@@ -210,8 +216,10 @@ module.exports.updateProfile = expressAsyncHandler(async (req, res) => {
         const data1 = await User.findById({ _id: req.params.id });
         if (data1) {
             let image;
-            if(photo){
-                image= await  commonfunction.getSecureUrl(photo);
+            if (photo) {
+                var result = await cloudinary.uploader.upload(req.body.photo, { resource_type: "auto" });
+                image = result.secure_url;
+                console.log(image);
             }
             let obj = {
                 tradeName: tradeName || data1.tradeName,
