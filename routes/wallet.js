@@ -9,5 +9,7 @@ router.get("/:id", walletController.getWallet);
 router.post("/add", walletController.addMoney);
 router.post("/remove", walletController.removeMoney);
 router.get("/:id", walletController.getWalletById);
-
+router.get("/allTransactionUser/:userId", walletController.allTransactionUser);
+router.get("/allcreditTransactionUser/:userId", walletController.allcreditTransactionUser);
+router.get("/allDebitTransactionUser/:userId", walletController.allDebitTransactionUser);
 module.exports = router;

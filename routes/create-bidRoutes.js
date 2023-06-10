@@ -32,6 +32,8 @@ router.post('/payment/status/:id', createBidController.PaymntStatus);
 router.get('/payment/bidId/:id', createBidController.paymentByBidId);
 router.get('/payment/placeBid/:id', createBidController.paymentByPlacBidd)
 router.post('/lotId', createBidController.getBidByLotId)
+router.get('/paymentbyuserId/:userId', createBidController.getPaymentByuserId);
+
 // router.get("/", (req, res) => {
 //   var apiCall = unirest(
 //     "GET",

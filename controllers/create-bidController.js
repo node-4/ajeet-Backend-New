@@ -393,3 +393,13 @@ exports.getBidByLotId = async (req, res) => {
     })
   }
 }
+module.exports.getPaymentByuserId = expressAsyncHandler(async (req, res) => {
+  try {
+    const data = await payment.find({ $or: [{ buyerId: req.params.userId }, { supplierId: req.params.userId }] }).populate(['supplierId', 'buyerId', 'BidId', 'placeBidId'])
+    res.status(200).json({ summary: data });
+  } catch (err) {
+    res.status(400).json({
+      message: err.message
+    })
+  }
+})
