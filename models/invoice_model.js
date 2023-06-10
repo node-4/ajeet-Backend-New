@@ -9,27 +9,35 @@ const invoiceSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  buyerId : {
+  buyerId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref:'User',
-},
-supplierId:{
+    ref: 'User',
+  },
+  supplierId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref:'User'
-},
-transporterId : {
-    type: mongoose.Schema.Types.ObjectId, 
     ref: 'User'
-},
-mode: {
-  type: String,
-},
+  },
+  transporterId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  sellerBid: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "createbid"
+  },
+  buyerBid: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "buyerSchema"
+  },
+  mode: {
+    type: String,
+  },
   amount: {
     type: Number,
     default: 0,
     required: true
   },
- 
+
   status: {
     type: String,
     enum: ['pending', 'successfully', 'cancelled'],

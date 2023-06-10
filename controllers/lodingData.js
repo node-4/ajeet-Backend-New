@@ -57,7 +57,7 @@ exports.AddLoding  = async(req,res) => {
         otpBuyer: otp2,
         crop: req.body.crop, 
         quantity: req.body.quantity, 
-        amoumt: parseInt(req.body.amoumt),
+        amount: parseInt(req.body.amount),
         deliveryDate: req.body.deliveryDate
     }
     const lodingData = await loding.create(data);

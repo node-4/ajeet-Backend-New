@@ -92,10 +92,7 @@ module.exports.sendOtp = async (req, res) => {
         }
         const data = await User.findOne({ phoneNumber: phoneNumber });
         if (data) {
-            return res.status(200).json({
-                otp: data.otp,
-                isRegistered: data.isRegisered,
-            });
+            return res.status(200).json({otp: data.otp,isRegistered: data.isRegisered,});
         } else {
             const otp = newOTP.generate(4, {
                 alphabets: false,
@@ -160,14 +157,14 @@ module.exports.veriifyOTP = async (req, res) => {
 module.exports.login = expressAsyncHandler(async (req, res) => {
     const name = req.body.name;
     const phoneNumber = req.body.phoneNumber;
-    console.log(phoneNumber);
     try {
         if (!(phoneNumber && name)) {
             return res.status(401).send({ msg: "Required filleds" });
         }
 
         var user = await User.findOne({ phoneNumber });
-
+        console.log(user);
+        
         if (user) {
             jwt.sign(
                 { user_id: user._id },

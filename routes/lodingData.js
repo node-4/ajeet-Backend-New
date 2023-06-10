@@ -2,6 +2,7 @@ const express = require('express');
 
 const loading = require('../controllers/lodingData');
 const shipRocket = require('../controllers/shiprocket')
+const invoice = require('../controllers/invoice');
 
 const router = express();
 
@@ -16,6 +17,9 @@ router.get('/sendotp/:id', loading.sendOtp)
 router.post('/verifysupplier',loading.verifyOtpsupplier );
 router.post('/verifyBuyer', loading.verifyOtBuyer)
 router.post('/shipRocket',shipRocket.AddOrderfortracking )
+router.post('/invoice/add', invoice.CreateInvoices);
+router.get('/invoice/buyer/:buyerBid', invoice.getInvoiceBybuyerBidID);
+router.get('/invoice/seller/:sellerBid', invoice.getInvoicebysellerBid);
 
 
 
