@@ -39,9 +39,8 @@ const uploads = require("../middleware/upload.middleware");
 
 const router = express.Router();
 router.post(
-  "/aadhar",
-  //uploads.array("myFiles", 2),
-  kycController.aadharDetails
+  "/aadhar",//uploads.array("myFiles", 2),
+kycController.aadharDetails
 );
 router.post("/pancard/:id",  kycController.panCard);
 router.post("/business-details/:id", kycController.businessDetails);
