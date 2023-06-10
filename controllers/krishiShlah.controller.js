@@ -48,7 +48,7 @@ exports.GetkrishiShlahByUserID = async (req, res) => {
 }
 exports.GetAllkrishiShlah = async (req, res) => {
   try {
-    const data = await krishiShlah.find();
+    const data = await krishiShlah.find().lean();
     res.status(200).json({ message: "ok", data: data })
   } catch (err) {
     console.log(err);

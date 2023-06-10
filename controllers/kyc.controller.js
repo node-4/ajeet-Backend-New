@@ -3,7 +3,12 @@ const Kyc = require("../models/kyc.model");
 const path = require("path");
 const { validatePin, checkAadharNumber } = require("../Helper/validation");
 const accountDetails = require("../models/account.detail.model");
-
+const cloudinary = require("cloudinary");
+cloudinary.config({
+  cloud_name: "https-www-pilkhuwahandloom-com",
+  api_key: "886273344769554",
+  api_secret: "BVicyMGE04PrE7vWSorJ5txKmPs",
+});
 module.exports.aadharDetails = expressAsyncHandler(async (req, res) => {
   try {
     const { aadharNumber } = req.body;

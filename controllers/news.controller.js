@@ -4,6 +4,12 @@ const apikey = "0c8e2dd09d7a400b9c06a2edb58b02d8";
 const News = require('../models/news')
 var fs = require("fs");
 const path = require("path");
+const cloudinary = require("cloudinary");
+cloudinary.config({
+  cloud_name: "https-www-pilkhuwahandloom-com",
+  api_key: "886273344769554",
+  api_secret: "BVicyMGE04PrE7vWSorJ5txKmPs",
+});
 module.exports.getnews = expressAsyncHandler(async (req, res) => {
   console.log("%%%%%%%%%%%%%%%%%%%");
   try {
@@ -48,12 +54,25 @@ module.exports.searchnews = expressAsyncHandler(async (req, res) => {
 
 exports.AddNews = async(req,res) => {
   try{
+    let photo, video, voice;
+    if (req.body.photo) {
+      var result = await cloudinary.uploader.upload(req.body.photo, { resource_type: "auto" });
+      photo = result.secure_url;
+    }
+    if (req.body.video) {
+      var result = await cloudinary.uploader.upload(req.body.video, { resource_type: "auto" });
+      video = result.secure_url;
+    }
+    if (req.body.voice) {
+      var result = await cloudinary.uploader.upload(req.body.voice, { resource_type: "auto" });
+      voice = result.secure_url;
+    }
     const data = {
       name: req.body.name, 
       message: req.body.message, 
-      photo: req.body.name, 
-      video: req.body.video,
-      voice: req.body.voice, 
+      photo: photo, 
+      video: video,
+      voice: voice, 
       link: req.body.link
     }
     const Data = await News.create(data);
