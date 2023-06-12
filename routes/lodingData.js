@@ -21,6 +21,7 @@ router.post('/invoice/add', invoice.CreateInvoices);
 router.get('/invoice/buyer/:buyerBid', invoice.getInvoiceBybuyerBidID);
 router.get('/invoice/seller/:sellerBid', invoice.getInvoicebysellerBid);
 router.get('/invoice/:id', invoice.getByID);
+router.get('/invoice/all', invoice.getAllInvoice);
 
 
 
