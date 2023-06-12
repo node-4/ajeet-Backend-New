@@ -80,7 +80,7 @@ module.exports.verifiedBidByAdmin = expressAsyncHandler(async (req, res) => {
     const id = req.params.id;
     console.log(req.body.expiretime)
     console.log(id)
-    await createBid.updateOne({ _id: id }, { activetime: new Date().toLocaleTimeString(), status: "active" }, { new: true });
+    await createBid.updateOne({ _id: id }, { expiretime: req.body.expiretime, activetime: new Date().toLocaleTimeString(), status: "active" }, { new: true });
     res.status(200).send({ msg: "bid verified successfully" });
   } catch (error) {
     console.log(error);
