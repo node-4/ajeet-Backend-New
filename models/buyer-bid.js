@@ -28,7 +28,6 @@ const buyerSchema = new mongoose.Schema({
     ref: "Crope"
   },
   supplier: { type: Schema.Types.ObjectId, ref: "createbid" },
-
   user: {
     type: Schema.Types.ObjectId,
     ref: "User",

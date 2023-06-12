@@ -7,7 +7,6 @@ const http = require('http');
 const server = http.createServer(app);
 const bodyparser = require("body-parser");
 const db = require("./config/db");
-
 const serverless = require("serverless-http");
 
 // const auth = require("./src/route/auth")
@@ -29,10 +28,11 @@ app.get("/",(req, res) => {
 });
 
  app.use("/api/v1/",require("./routes/indexRoutes"));
-
+ 
  db();
-app.listen(PORT, () => {
-  console.log(`listening on port ${PORT}`);
+ require('./controllers/invoiceCronJob')
+ app.listen(PORT, () => {
+   console.log(`listening on port ${PORT}`);
 });
 
 module.exports = {

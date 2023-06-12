@@ -1,23 +1,11 @@
 const mongoose = require('mongoose');
 
 const invoiceSchema = new mongoose.Schema({
-  invoiceNumber: {
-    type: String,
-    required: true
-  },
-  crop: {
-    type: String,
-    required: true
-  },
   buyerId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
   supplierId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  },
-  transporterId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
@@ -29,6 +17,13 @@ const invoiceSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "buyerSchema"
   },
+  invoiceNumber: {
+    type: String,
+    required: true
+  },
+  invoiceDate: {
+    type: Date,
+  },
   mode: {
     type: String,
   },
@@ -37,7 +32,6 @@ const invoiceSchema = new mongoose.Schema({
     default: 0,
     required: true
   },
-
   status: {
     type: String,
     enum: ['pending', 'successfully', 'cancelled'],

@@ -14,12 +14,13 @@ router.delete('/delete/:id', loading.DeleteById);
 router.get('/get/:id', loading.getById);
 router.get('/transporter/:id', loading.getloadingDatatransporter);
 router.get('/sendotp/:id', loading.sendOtp)
-router.post('/verifysupplier',loading.verifyOtpsupplier );
+router.post('/verifysupplier', loading.verifyOtpsupplier);
 router.post('/verifyBuyer', loading.verifyOtBuyer)
-router.post('/shipRocket',shipRocket.AddOrderfortracking )
+router.post('/shipRocket', shipRocket.AddOrderfortracking)
 router.post('/invoice/add', invoice.CreateInvoices);
 router.get('/invoice/buyer/:buyerBid', invoice.getInvoiceBybuyerBidID);
 router.get('/invoice/seller/:sellerBid', invoice.getInvoicebysellerBid);
+router.get('/invoice/:id', invoice.getByID);
 
 
 

@@ -14,10 +14,6 @@ function generateInvoiceNumber() {
     }
     return result;
 }
-
-
-
-
 exports.CreateInvoices = async (req, res) => {
     try {
         if (!req.body.buyerId && !req.body.supplierId) {
@@ -54,11 +50,9 @@ exports.CreateInvoices = async (req, res) => {
         })
     }
 }
-
-
 exports.getAllInvoice = async (req, res) => {
     try {
-        const result = await Invoice.find();
+        const result = await Invoice.find().populate("buyerId supplierId sellerBid buyerBid");
         res.status(200).json({
             message: "ok",
             result: result
@@ -123,7 +117,7 @@ exports.getSupplierID = async (req, res) => {
 
 exports.getByID = async (req, res) => {
     try {
-        const result = await Invoice.find({ supplierId: req.params.supplierId });
+        const result = await Invoice.findById({ _id: req.params.id });
         res.status(200).json({
             message: "ok",
             result: result
@@ -139,7 +133,7 @@ exports.getByID = async (req, res) => {
 
 exports.getInvoicebysellerBid = async (req, res) => {
     try {
-        const result = await Invoice.find({ sellerBid: req.params.sellerBid}).populate('buyerId supplierId transporterId sellerBid buyerBid');
+        const result = await Invoice.find({ sellerBid: req.params.sellerBid }).populate('buyerId supplierId transporterId sellerBid buyerBid');
         res.status(200).json({
             message: "ok",
             result: result
