@@ -166,7 +166,7 @@ const filterHightestBidlist = async (ID, user) => {
 }
 module.exports.AcceptBid = async (req, res) => {
   try {
-    const waitlistData = await waitlist.findOne({ user: req.params.user });
+    const waitlistData = await waitlist.findOne({ user: req.params.user, bid: req.params.bid, });
     let top = [];
     for (let i = 0; i < waitlistData.top.length; i++) {
       if (waitlistData.top[i]._id.toString() === req.params.id.toString()) {

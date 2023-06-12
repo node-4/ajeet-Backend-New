@@ -19,7 +19,7 @@ router.get("/search", isAuthenticated2, createBidController.allUsers);
 module.exports = router;
 
 //router.get('/heightBid/:user/:id' , createBidController.filterHightestBidlist);
-router.post('/accept/:id/:user', createBidController.AcceptBid);
+router.post('/accept/:id/:user/:bid', createBidController.AcceptBid);
 router.post('/cancel/:id/:user', createBidController.RejectBid);
 router.get('/payment/summary/', createBidController.getPaymentByLotId)
 router.post('/bidstatus/:id', createBidController.changeStatusByTimer)
