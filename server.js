@@ -8,6 +8,9 @@ const server = http.createServer(app);
 const bodyparser = require("body-parser");
 const db = require("./config/db");
 const serverless = require("serverless-http");
+var bodyParser = require('body-parser');
+app.use(bodyParser.json({limit: "100mb"}));
+app.use(bodyParser.urlencoded({limit: "100mb", extended: true, parameterLimit:500000}));
 
 // const auth = require("./src/route/auth")
 // const subcriptions = require("./src/route/subcriptions")
