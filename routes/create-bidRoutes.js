@@ -4,11 +4,11 @@ const router = express.Router();
 const createBidController = require("../controllers/create-bidController");
 const { isAuthenticated2 } = require("../controllers/auth.controller");
 
-router.post("/",  createBidController.createBid);
-router.put("/:id",  createBidController.updateBid);
-router.delete("/:id",createBidController.deleteBid);
-router.get("/",  createBidController.getBidDetails);
-router.get('/all',createBidController.GetAllBids );
+router.post("/", createBidController.createBid);
+router.put("/:id", createBidController.updateBid);
+router.delete("/:id", createBidController.deleteBid);
+router.get("/", createBidController.getBidDetails);
+router.get('/all', createBidController.GetAllBids);
 router.get("/:id", createBidController.getBidDetailsById);
 router.put('/rebid/:id', createBidController.RecreateBid)
 router.put(
@@ -20,7 +20,7 @@ module.exports = router;
 
 //router.get('/heightBid/:user/:id' , createBidController.filterHightestBidlist);
 router.post('/accept/:id/:user/:bid', createBidController.AcceptBid);
-router.post('/cancel/:id/:user', createBidController.RejectBid);
+router.post('/cancel/:id/:user/:bid', createBidController.RejectBid);
 router.get('/payment/summary/', createBidController.getPaymentByLotId)
 router.post('/bidstatus/:id', createBidController.changeStatusByTimer)
 router.get('/bidId/:id', createBidController.getBidByBidId);

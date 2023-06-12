@@ -216,7 +216,7 @@ module.exports.AcceptBid = async (req, res) => {
 module.exports.RejectBid = async (req, res) => {
   try {
     const data = await buyerSchrma.findById({ _id: req.params.id })
-    const waitlistData = await waitlist.findOne({ user: req.params.user })
+    const waitlistData = await waitlist.findOne({ user: req.params.user, bid: req.params.bid, })
     const idToDelete = req.params.id;
     console.log(idToDelete)
     //   console.log(waitlistData)
