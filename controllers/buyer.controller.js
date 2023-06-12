@@ -69,7 +69,7 @@ module.exports.makeBid = expressAsyncHandler(async (req, res) => {
       user: req.body.user,
       product: cropData.name,
       quantity: req.body.quantity,
-      buyerlocation: req.body.buyerlocation,
+      buyerlocation: req.body.location,
       bidDetail: req.params.id,
       highestBid: highestBid,
       crop: product,
